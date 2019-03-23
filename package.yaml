@@ -1,0 +1,36 @@
+library:
+  source-dirs: src
+tests:
+  my-parser-test:
+    source-dirs: test
+    main: Spec.hs
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - hspec
+    - my-parser
+copyright: 2018 Author name here
+maintainer: example@example.com
+dependencies:
+- base >= 4.7 && < 5
+name: my-parser
+version: 0.1.0.0
+extra-source-files:
+- README.md
+- ChangeLog.md
+author: Author name here
+github: dewey92/my-parser
+license: BSD3
+executables:
+  my-parser-exe:
+    source-dirs: app
+    main: Main.hs
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - my-parser
+description: Please see the README on GitHub at <https://github.com/githubuser/json-parser#readme>
