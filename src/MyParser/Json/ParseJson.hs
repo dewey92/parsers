@@ -3,7 +3,6 @@ module MyParser.Json.ParseJson (parseJson) where
 import Data.Functor (($>))
 import Text.Parsec
 import Text.Parsec.String
-import Control.Monad
 --
 import MyParser.Json.Types
   ( JValue (..)
@@ -16,9 +15,6 @@ trim p = spaces *> p <* spaces
 
 oneOfStr :: String -> Parser String
 oneOfStr = fmap return . oneOf
-
-noneOfStr :: String -> Parser String
-noneOfStr = fmap return . noneOf
 
 -----------------------
 -- | Individual parsers
@@ -102,9 +98,9 @@ parseObject = do
   char '{'
   result <- parseKeyValue `sepBy` char ','
   char '}'
-  return (JObject $ map (\(JString k, v) -> (k, v)) result) <?> "object"
+  return (JObject result) <?> "object"
   where parseKeyValue = do
-          key <- trim parseString
+          (JString key) <- trim parseString
           char ':'
           value <- trim parseJson'
           return (key, value)
